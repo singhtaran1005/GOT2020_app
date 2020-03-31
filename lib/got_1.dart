@@ -28,20 +28,56 @@ class _Got1State extends State<Got1> {
     });
   }
 
+  showGridWidget(){
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: GridView.builder(
+        itemCount: data["_embedded"]["episodes"].length,
+        gridDelegate: 
+                    SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, crossAxisSpacing: 16.0,mainAxisSpacing: 16.0
+                      ),   
+        itemBuilder: (context,index) {
+          var episode = data["_embedded"]["episodes"][index];
+          return Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0)),
+              child: Stack(
+                children: <Widget>[
+                  Image.network(
+                    episode["image"]["original"],
+                  ),
+                ],
+              ),
+              );
+        },
+      ),
+    );
+  }
+
   dataBody(BuildContext context){
     var imgUrl = data["image"]["original"];
     var body = Column(
       children: <Widget>[
       Center(
         child: CircleAvatar(
-          backgroundImage: NetworkImage("imgUrl"),
+          backgroundImage: NetworkImage(imgUrl),
           radius: 70,
         ),
       ),
+      SizedBox(height: 20,
+      ),
+      Text(data["name"]),
+      SizedBox(height: 20,
+      ),
+      Expanded(
+        child: showGridWidget(),
+        ),
     ],
     );
     return body;
   }
+
 
   @override
   Widget build(BuildContext context) {
