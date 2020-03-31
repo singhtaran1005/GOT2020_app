@@ -40,13 +40,41 @@ class _Got1State extends State<Got1> {
         itemBuilder: (context,index) {
           var episode = data["_embedded"]["episodes"][index];
           return Card(
+            clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0)),
               child: Stack(
+                fit: StackFit.expand,
                 children: <Widget>[
                   Image.network(
                     episode["image"]["original"],
+                    fit: BoxFit.cover,
                   ),
+                  Align(
+                    alignment : Alignment.bottomLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(episode["name"],
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        child: Text("S${episode["season"]}E${episode["number"]}"),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.only(bottomLeft: Radius.circular(16)),
+                        ),   
+                      ),
+                    ),
+                  )
                 ],
               ),
               );
