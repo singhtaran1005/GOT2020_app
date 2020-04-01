@@ -57,6 +57,8 @@ class _Got1State extends State<Got1> {
                       child: Text(episode["name"],
                       style: TextStyle(
                         color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
                       ),
                       ),
                     ),
